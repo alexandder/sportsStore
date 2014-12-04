@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html ng-app="sportsStore">
+	<head>
+		<meta charset="utf-8">
+		<title>Tech-feast web</title>
+		<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap.css")">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/bootstrap/css/bootstrap-theme.css")">
+		<link rel="shortcut icon" type="image/png"
+			href="@routes.Assets.versioned("images/favicon.png")">
+		<script src="@routes.Assets.versioned("lib/angularjs/angular.js")"/></script>
+		<script src="@routes.Assets.versioned("lib/angularjs/angular-route.js")"/></script>
+		<script type="text/javascript">
+			angular.module("sportsStore", ["customFilters", "cart", "ngRoute"])
+				.config(function ($routeProvider) {
+
+					$routeProvider.when("/complete", {
+						templateUrl: "/partials/thankYou.html"
+					});
+
+					$routeProvider.when("/placeorder", {
+						templateUrl: "/partials/placeOrder.html"
+					});
+
+					$routeProvider.when("/checkout", {
+						templateUrl: "/partials/checkoutSummary.html"
+					});
+
+					$routeProvider.when("/products", {
+						templateUrl: "/partials/productList.html"
+					});
+
+					$routeProvider.otherwise({
+						templateUrl: "/partials/productList.html"
+					});
+				});
+
+		</script>
+		<script src="@routes.Assets.versioned("javascripts/controllers/sportsStore.js")"></script>
+		<script src="@routes.Assets.versioned("javascripts/filters/customFilters.js")"></script>
+		<script src="@routes.Assets.versioned("javascripts/controllers/productListController.js")"></script>
+		<script src="@routes.Assets.versioned("javascripts/components/cart/cart.js")"></script>
+		<script src="@routes.Assets.versioned("javascripts/controllers/checkoutController.js")"></script>	
+	</head>
+	<body ng-controller="sportsStoreCtrl">
+		<div class="navbar navbar-inverse">
+			<a class="navbar-brand" href="#">SPORTS STORE</a>
+			<cart-summary />
+		</div> 
+		<div class="alert alert-danger" ng-show="data.error">
+			Error ({{data.error.status}}). The product data was not loaded.
+			<a href="/app.html" class="alert-link">Click here to try again</a>
+		</div>
+		
+		<ng-view />
+	</body>
+</html>
